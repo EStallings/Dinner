@@ -37,7 +37,7 @@ function DoTriggerAction (trigger) {
 			break;
 		case 'loosenChandelier':
 			flags['chandelierLoose'] = true;
-			var chanAnim : AnimController = chanObject.GetComponent("AnimController");
+			var charAnim : AnimController = chanObject.GetComponent("AnimController");
 			charAnim.Trigger();
 			break;
 		case 'serveBrandy':

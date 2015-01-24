@@ -11,10 +11,10 @@ public class AnimController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 
-	void Trigger(){
+	public void Trigger(){
 		active = !active;
 	}
 
@@ -22,7 +22,7 @@ public class AnimController : MonoBehaviour {
 	void Update () {
 		PropWaggler tempwaggle = null;
 		PropPointer temppointer = null;
-		PropRotateLock templock = null;  
+		PropRotateLock templock = null;
 		LimbResetter tempreset = null;
 		counter = 0;
 		if(active){
