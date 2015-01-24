@@ -6,7 +6,7 @@ var waypoints : Transform[];
 var times : int[];
 var anims : int[]; //todo: make this some kind of asset type
 var sounds : AudioClip[];
-var triggers : int[];
+var triggers : String[];
 
 var walkAnim = null;
 var walkSound = null;
@@ -76,7 +76,7 @@ function Update () {
 			curIndex ++;
 			lastWaypoint = curWaypoint;
 			curWaypoint = waypoints[curIndex];
-			
+
 			if(!IsCloseToDestination()){
 				isWalking = true;
 				StartAnimAndSoundLoops(walkAnim, walkSound);
@@ -87,8 +87,8 @@ function Update () {
 				curTimer = times[curIndex];
 				StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 			}
-			
-			
+
+
 		}
 	}
 }
