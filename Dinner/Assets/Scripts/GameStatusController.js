@@ -9,9 +9,9 @@ var flags = {
 };
 var player = Player;
 
-var screwController : CharacterController;
-
-var chanObject : GameObject;
+var screwObject : GameObject;
+var chanObject  : GameObject;
+var wineObject  : GameObject;
 
 
 private var lightningAudioSource : AudioSource;
@@ -39,6 +39,8 @@ function DoTriggerAction (trigger) {
 			flags['chandelierLoose'] = true;
 			var charAnim : AnimController = chanObject.GetComponent("AnimController");
 			charAnim.Trigger();
+			var screwController : MyCharacterController = screwObject.GetComponent("CharacterController");
+			screwController.Trigger();
 			break;
 		case 'serveBrandy':
 			flags['brandyServed'] = true;
