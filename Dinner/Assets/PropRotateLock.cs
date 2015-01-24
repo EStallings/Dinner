@@ -13,7 +13,7 @@ public class PropRotateLock : MonoBehaviour {
 		target = Quaternion.Euler(transform.localRotation.eulerAngles + offset);
 	}
 	
-	void LockTrigger(){
+	public void LockTrigger(){
 		active = !active;
 	}
 	

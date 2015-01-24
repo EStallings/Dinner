@@ -14,7 +14,7 @@ public class PropPointer : MonoBehaviour {
 
 	}
 	
-	void PointerTrigger(){
+	public void PointerTrigger(){
 		active = !active;
 	}
 	

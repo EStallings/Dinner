@@ -19,7 +19,7 @@ public class PropWaggler : MonoBehaviour {
 	
 	}
 
-	void WaggleTrigger(){
+	public void WaggleTrigger(){
 		activestate = !activestate;
 	}
 	
