@@ -105,8 +105,8 @@ function DoTriggerAction (trigger) {
 			flags['chandelierLoose'] = true;
 			// var charAnim : AnimController = chanObj.GetComponent("AnimController");
 			// charAnim.Trigger();
-			// var screwCtrl : MyCharacterController = screwObj.GetComponent("CharacterController");
-			// screwCtrl.Trigger();
+			var screwCtrl : MyCharacterController = screwObj.GetComponent("CharacterController");
+			screwCtrl.Trigger();
 			break;
 		case 'takeGun':
 			flags['gunTaken'] = true;
