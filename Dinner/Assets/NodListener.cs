@@ -43,7 +43,7 @@ public class NodListener : MonoBehaviour {
 		//collect high data points into nod test array 
 		if(index >= 5){
 			highpoints[Mathf.RoundToInt(Time.timeSinceLevelLoad*numhighlights*2)%numhighlights] = 0.0f;
-			if(Mathf.Abs(smoothderivatives[index-5].x) > 0.1f){
+			if(Mathf.Abs(smoothderivatives[index-5].x) > 0.4f){
 				if(Mathf.Abs(smoothderivatives[index-5].x) > Mathf.Abs(smoothderivatives[index-5].y) && (Mathf.Abs(smoothderivatives[index-5].x) > Mathf.Abs(smoothderivatives[index-5].z))){
 					highpoints[Mathf.RoundToInt(Time.timeSinceLevelLoad*numhighlights*2)%numhighlights] = smoothderivatives[index-5].x;
 				}
@@ -52,7 +52,7 @@ public class NodListener : MonoBehaviour {
 		}
 		nodtest = 0;
 		for(i = 1; i < numhighlights-1; i++){
-			if(highpoints[i-1] != 0 && highpoints[i] !=0.5){
+			if(highpoints[i-1] != 0 && highpoints[i] !=0.0){
 				if (Mathf.Sign(highpoints[i-1]) != Mathf.Sign(highpoints[i])){
 					nodtest++;
 				}
