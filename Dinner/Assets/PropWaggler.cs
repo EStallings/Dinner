@@ -7,6 +7,7 @@ public class PropWaggler : MonoBehaviour {
 	private Vector3 start;
 	private Vector3 end;
 	private Vector3 current;
+	private Quaternion currentquat;
 	public bool activestate;
 	private bool direction;
 
@@ -27,7 +28,8 @@ public class PropWaggler : MonoBehaviour {
 	void Update () {
 		if(activestate){
 			current = transform.localRotation.eulerAngles;
-			transform.localRotation = Quaternion.Euler(start + offset * Mathf.Sin(Time.timeSinceLevelLoad*speed));
+			currentquat = Quaternion.Euler(transform.localRotation.eulerAngles - offset * Mathf.Sin((Time.timeSinceLevelLoad - Time.deltaTime)*speed));
+			transform.localRotation = Quaternion.Euler(currentquat.eulerAngles + offset * Mathf.Sin(Time.timeSinceLevelLoad*speed));
 		}
 	}
 }

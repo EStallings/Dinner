@@ -5,7 +5,7 @@ public class AnimController : MonoBehaviour {
 	public GameObject[] targets;
 	public int[] type;
 	public Vector3[] noffset;
-	public float[] speed;
+	public float[] nspeed;
 	public bool active;
 	private int counter;
 
@@ -23,13 +23,21 @@ public class AnimController : MonoBehaviour {
 		PropWaggler tempwaggle = null;
 		PropPointer temppointer = null;
 		PropRotateLock templock = null;  
+		LimbResetter tempreset = null;
 		counter = 0;
 		if(active){
 			foreach (GameObject target in targets){
+				if(type[counter] == -1){
+					tempreset = target.GetComponent<LimbResetter>();
+					if (tempreset != null){
+						tempreset.ResetTrigger();
+					}
+				}
 				if(type[counter] == 0){
 					tempwaggle = target.GetComponent<PropWaggler>();
 					if (tempwaggle != null){
 						tempwaggle.offset = noffset[counter];
+						tempwaggle.speed = nspeed[counter];
 						tempwaggle.WaggleTrigger();
 					}
 				}
@@ -37,6 +45,7 @@ public class AnimController : MonoBehaviour {
 					temppointer = target.GetComponent<PropPointer>();
 					if (temppointer != null){
 						temppointer.target = noffset[counter];
+						temppointer.speed = nspeed[counter];
 						temppointer.PointerTrigger();
 					}
 				}
@@ -44,6 +53,7 @@ public class AnimController : MonoBehaviour {
 					templock = target.GetComponent<PropRotateLock>();
 					if (templock != null){
 						templock.offset = noffset[counter];
+						templock.speed = nspeed[counter];
 						templock.LockTrigger();
 					}
 				}
