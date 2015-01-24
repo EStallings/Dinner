@@ -17,7 +17,8 @@ private var curTimer         : int       = -1;
 private var curWaypoint      : Transform = null;
 private var lastWaypoint     : Transform = null;
 private var curIndex         : int       = 0;
-
+private var curAnimation = null;
+private var curSound = null;
 var speed = 0.1;
 private var startTime: float;
 private var journeyLength: float;
@@ -34,6 +35,10 @@ function Start () {
 
 function StartAnimAndSoundLoops(anim, sound) {
 	print("Starting anim and sound on loop!");
+	//End current animations and sounds
+	curAnimation = anim;
+	curSound = sound;
+	//Start current animations and sounds
 }
 
 function Update () {
@@ -50,7 +55,7 @@ function Update () {
 			curIndex ++;
 			lastWaypoint = curWaypoint;
 			curWaypoint = waypoints[curIndex];
-			curTimer = times[curInde x];
+			curTimer = times[curIndex];
 			StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 			if(!IsCloseToDestination()){
 				isWalking = true;
