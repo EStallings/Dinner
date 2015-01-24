@@ -16,8 +16,6 @@ public class PropWaggler : MonoBehaviour {
 		direction = false;
 		start = transform.localRotation.eulerAngles;
 		end = transform.localRotation.eulerAngles + offset;
-
-	
 	}
 
 	public void WaggleTrigger(){

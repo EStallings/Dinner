@@ -5,7 +5,6 @@ public class PropRotateLock : MonoBehaviour {
 	public bool active;
 	public Vector3 offset;
 	public float speed;
-	private Quaternion temp;
 	private Quaternion target;
 
 	// Use this for initialization
