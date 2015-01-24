@@ -12,7 +12,9 @@ Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\A
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
-- Completed reload, in  0.092 seconds
+Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\Ethan\Desktop\Dinner\Dinner\VR_Dinner_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+- Completed reload, in  0.096 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
