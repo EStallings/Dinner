@@ -3,22 +3,24 @@
 var controller : GameStatusController;
 
 var waypoints : Transform[];
-var times : int[];
-var anims : int[]; //todo: make this some kind of asset type
-var sounds : AudioClip[];
-var triggers : String[];
+var times     : int[];
+var anims     : AnimController[]; //todo: make this some kind of asset type
+var animStop  : AnimController;
+var sounds    : AudioClip[];
+var triggers  : String[];
 
 var walkAnim = null;
 var walkSound = null;
 
-private var isCarryingObject : boolean   = false;
-private var isWalking        : boolean   = false;
-private var curTimer         : int       = -1;
-private var curWaypoint      : Transform = null;
-private var lastWaypoint     : Transform = null;
-private var curIndex         : int       = 0;
-private var curAnimation = null;
-private var curSound : AudioClip = null;
+private var isCarryingObject : boolean        = false;
+private var isWalking        : boolean        = false;
+private var curTimer         : int            = -1;
+private var curWaypoint      : Transform      = null;
+private var lastWaypoint     : Transform      = null;
+private var curIndex         : int            = 0;
+private var curAnimation     : AnimController = null;
+private var curSound         : AudioClip      = null;
+
 var speed = 0.1;
 private var startTime: float;
 private var journeyLength: float;
@@ -37,11 +39,17 @@ function Start () {
 	StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 }
 
+public function Trigger() {
+	curTimer = 0;
+}
+
 function StartAnimAndSoundLoops(anim, sound) {
 	print("Starting anim and sound on loop!");
 	//End current animations and sounds
 	if(curAnimation != null){
 		//End animation
+		animStop.Trigger();
+
 	}
 	if(curSound != null){
 		//End sound
@@ -53,6 +61,7 @@ function StartAnimAndSoundLoops(anim, sound) {
 	//Start current animations and sounds
 	if(curAnimation != null){
 		//Start animation
+		curAnimation.Trigger();
 	}
 	if(curSound != null){
 		//Start sound
@@ -87,8 +96,6 @@ function Update () {
 				curTimer = times[curIndex];
 				StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 			}
-
-
 		}
 	}
 }
