@@ -11,12 +11,12 @@ var triggers : int[];
 var walkAnim = null;
 var walkSound = null;
 
-private var isCarryingObject = false;
-private var isWalking        = false;
-private var curTimer         = -1;
-private var curWaypoint : Transform     = null;
-private var lastWaypoint : Transform    = null;
-private var curIndex         = 0;
+private var isCarryingObject : boolean   = false;
+private var isWalking        : boolean   = false;
+private var curTimer         : int       = -1;
+private var curWaypoint      : Transform = null;
+private var lastWaypoint     : Transform = null;
+private var curIndex         : int       = 0;
 
 var speed = 0.1;
 private var startTime: float;
@@ -50,7 +50,7 @@ function Update () {
 			curIndex ++;
 			lastWaypoint = curWaypoint;
 			curWaypoint = waypoints[curIndex];
-			curTimer = times[curIndex];
+			curTimer = times[curInde x];
 			StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 			if(!IsCloseToDestination()){
 				isWalking = true;
