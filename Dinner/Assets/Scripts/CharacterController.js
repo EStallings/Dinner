@@ -46,6 +46,7 @@ function StartAnimAndSoundLoops(anim, sound) {
 	if(curSound != null){
 		//End sound
 		asource.Stop();
+		print("Stopping : " + curSound);
 	}
 	curAnimation = anim;
 	curSound = sound;
@@ -57,6 +58,7 @@ function StartAnimAndSoundLoops(anim, sound) {
 		//Start sound
 		asource.clip = curSound;
 		asource.Play();
+		print("Playing : " + curSound);
 	}
 }
 
@@ -67,28 +69,33 @@ function Update () {
 	else {
 		if(curTimer > 0) curTimer --;
 		if(curTimer == 0) {
-			print("Progressing");
+			print("Progressing : " + (curIndex + 1));
 			if(triggers[curIndex] != 0){
 				controller.DoTriggerAction(triggers[curIndex]);
 			}
 			curIndex ++;
 			lastWaypoint = curWaypoint;
 			curWaypoint = waypoints[curIndex];
-			curTimer = times[curIndex];
-			StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
+			
 			if(!IsCloseToDestination()){
 				isWalking = true;
 				StartAnimAndSoundLoops(walkAnim, walkSound);
 				startTime = Time.time;
 				journeyLength = Vector3.Distance(lastWaypoint.position, curWaypoint.position);
 			}
+			else {
+				curTimer = times[curIndex];
+				StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
+			}
+			
+			
 		}
 	}
 }
 
 function IsCloseToDestination() {
 	var distance = Vector3.Distance(lastWaypoint.position, curWaypoint.position);
-	print("Distance = " + distance);
+	//print("Distance = " + distance);
 	if(distance > 1.5) return false;
 	return true;
 }
@@ -100,6 +107,8 @@ function MoveTowardsWaypoint(waypoint) {
   transform.position = Vector3.Lerp(lastWaypoint.position, curWaypoint.position, fracJourney);
   if (fracJourney >= 1){
   	isWalking = false;
-  	print("Stopping");
+  	curTimer = times[curIndex];
+	StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
+  	//print("Stopping");
   }
 }
