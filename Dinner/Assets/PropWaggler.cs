@@ -27,22 +27,7 @@ public class PropWaggler : MonoBehaviour {
 	void Update () {
 		if(activestate){
 			current = transform.localRotation.eulerAngles;
-			if (Vector3.Distance(current, end) <= 0.1f && direction == false ){
-				direction = true;
-			}
-			if (Vector3.Distance(current, start) <= 0.1f && direction == true ){
-				direction = false;
-			}
-
-			print(direction);
-			print (Vector3.Distance(current, end));
-
-			if(direction == false){
-				transform.localRotation = Quaternion.Lerp(Quaternion.Euler(start), Quaternion.Euler(end), speed);
-			}
-			if(direction == true){
-				transform.localRotation = Quaternion.Lerp(Quaternion.Euler(end), Quaternion.Euler(start), speed);
-			}
+			transform.localRotation = Quaternion.Euler(start + offset * Mathf.Sin(Time.timeSinceLevelLoad*speed));
 		}
 	}
 }
