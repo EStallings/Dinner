@@ -1,3 +1,81 @@
 Base path: C:/Program Files (x86)/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-1-3472
+Pipe name: \\.\pipe\UnityShaderCompiler-1-4744
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=464 outsize=464 ok=1
+Cmd: preprocess
+  insize=757 outsize=757 ok=1
+Cmd: preprocess
+  insize=337558 outsize=337558 ok=1
+Cmd: preprocess
+  insize=327681 outsize=327681 ok=1
+Cmd: preprocess
+  insize=1076 outsize=1076 ok=1
+Cmd: preprocess
+  insize=1971 outsize=1971 ok=1
+Cmd: preprocess
+  insize=1101 outsize=904 ok=1
+Cmd: preprocess
+  insize=347969 outsize=347969 ok=1
+Cmd: preprocess
+  insize=366083 outsize=366083 ok=1
+Cmd: preprocess
+  insize=994 outsize=994 ok=1
+Cmd: preprocess
+  insize=474196 outsize=474196 ok=1
+Cmd: preprocess
+  insize=508535 outsize=508535 ok=1
+Cmd: preprocess
+  insize=1287 outsize=1287 ok=1
+Cmd: preprocess
+  insize=1147 outsize=1147 ok=1
+Cmd: preprocess
+  insize=1340 outsize=1340 ok=1
+Cmd: preprocess
+  insize=2514 outsize=1827 ok=1
+Cmd: preprocess
+  insize=1141 outsize=1141 ok=1
+Cmd: preprocess
+  insize=539066 outsize=539066 ok=1
+Cmd: preprocess
+  insize=357058 outsize=357058 ok=1
+Cmd: preprocess
+  insize=1418 outsize=1418 ok=1
+Cmd: preprocess
+  insize=1175 outsize=1175 ok=1
+Cmd: preprocess
+  insize=479249 outsize=479249 ok=1
+Cmd: preprocess
+  insize=1654 outsize=1035 ok=1
+Cmd: preprocess
+  insize=321645 outsize=321645 ok=1
+Cmd: preprocess
+  insize=357627 outsize=357627 ok=1
+Cmd: preprocess
+  insize=1489 outsize=1486 ok=1
+Cmd: preprocess
+  insize=1246 outsize=422 ok=1
+Cmd: preprocess
+  insize=1207 outsize=411 ok=1
+Cmd: preprocess
+  insize=1069 outsize=1069 ok=1
+Cmd: preprocess
+  insize=1030 outsize=1030 ok=1
+Cmd: preprocess
+  insize=1309 outsize=1309 ok=1
+Cmd: preprocess
+  insize=1065 outsize=1065 ok=1
+Cmd: preprocess
+  insize=496638 outsize=496638 ok=1
+Cmd: preprocess
+  insize=1574 outsize=702 ok=1
+Cmd: preprocess
+  insize=522761 outsize=522761 ok=1
+Cmd: preprocess
+  insize=1812 outsize=1056 ok=1
+Cmd: preprocess
+  insize=525518 outsize=525518 ok=1
+Cmd: preprocess
+  insize=263 outsize=263 ok=1
+Cmd: preprocess
+  insize=959 outsize=959 ok=1
