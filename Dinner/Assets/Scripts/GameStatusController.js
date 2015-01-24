@@ -12,3 +12,7 @@ function Start () {
 function Update () {
 
 }
+
+function DoTriggerAction (trigger) {
+	print(trigger);
+}

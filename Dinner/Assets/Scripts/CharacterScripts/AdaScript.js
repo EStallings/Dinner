@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
-var controller : GameStatusController;
-var waypoints : Transform[];
+
+
 
 function Start () {
 
@@ -15,6 +15,6 @@ function PlayerActivateConspirator() {
 
 }
 
-function MoveToPoint() {
+function MoveTo() {
 
 }
