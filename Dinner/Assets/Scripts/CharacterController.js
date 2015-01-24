@@ -5,7 +5,7 @@ var controller : GameStatusController;
 var waypoints : Transform[];
 var times : int[];
 var anims : int[]; //todo: make this some kind of asset type
-var sounds : int[];
+var sounds : AudioClip[];
 var triggers : int[];
 
 var walkAnim = null;
@@ -18,7 +18,7 @@ private var curWaypoint      : Transform = null;
 private var lastWaypoint     : Transform = null;
 private var curIndex         : int       = 0;
 private var curAnimation = null;
-private var curSound = null;
+private var curSound : AudioClip = null;
 var speed = 0.1;
 private var startTime: float;
 private var journeyLength: float;
@@ -26,7 +26,11 @@ private var journeyLength: float;
 var target : Transform;
 var smooth = 5.0;
 
+private var asource : AudioSource;
+
 function Start () {
+	asource = gameObject.AddComponent("AudioSource");
+	asource.loop = true; //just, always loop everything
 	curWaypoint = waypoints[0];
 	curTimer = times[0];
 	print(transform.position);
@@ -36,9 +40,24 @@ function Start () {
 function StartAnimAndSoundLoops(anim, sound) {
 	print("Starting anim and sound on loop!");
 	//End current animations and sounds
+	if(curAnimation != null){
+		//End animation
+	}
+	if(curSound != null){
+		//End sound
+		asource.Stop();
+	}
 	curAnimation = anim;
 	curSound = sound;
 	//Start current animations and sounds
+	if(curAnimation != null){
+		//Start animation
+	}
+	if(curSound != null){
+		//Start sound
+		asource.clip = curSound;
+		asource.Play();
+	}
 }
 
 function Update () {
