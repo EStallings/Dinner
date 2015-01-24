@@ -8,6 +8,8 @@ Direct3D:
 Begin MonoManager ReloadAssembly
 Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-UnityScript-firstpass.dll (this message is harmless)
