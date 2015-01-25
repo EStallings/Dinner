@@ -115,7 +115,7 @@ function StartAnimAndSoundLoops(anim, sound) {
 		//Start sound
 		print("Starting soundeffect " + curSound + " from " + label);
 		asource.clip = curSound;
-		asource.loop = soundsDontLoop[curIndex];
+		asource.loop = !soundsDontLoop[curIndex];
 		asource.Play();
 		//print("Playing : " + curSound);
 	}

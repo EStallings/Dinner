@@ -73,8 +73,6 @@ public class CharacterAnimScheduler : MonoBehaviour {
 				GetBusyController.Trigger();
 			}
 			break;
-
-		//TO TEST
 		case "shootCeiling":
 			if (time == 0.0) {
 				GetBusyController.Trigger();
@@ -85,6 +83,8 @@ public class CharacterAnimScheduler : MonoBehaviour {
 				ShootCeilingController.Trigger();
 			}
 			break;
+
+		//TO TEST
 		case "drinkBrandy":
 			if (time == 0.0) {
 				SitController.Trigger();
@@ -95,6 +95,12 @@ public class CharacterAnimScheduler : MonoBehaviour {
 			if (time == 0.0) {
 				TorsoWalkController.Trigger();
 				FreakOutController.Trigger();
+			}
+			break;
+		case "knockOverGlass":
+			if (time == 0.0) {
+				SitController.Trigger();
+				KnockOverGlassController.Trigger();
 			}
 			break;
 
@@ -110,12 +116,6 @@ public class CharacterAnimScheduler : MonoBehaviour {
 			if (time == 0.0) {
 				SitController.Trigger();
 				CarryingController.Trigger();
-			}
-			break;
-		case "knockOverGlass":
-			if (time == 0.0) {
-				SitController.Trigger();
-				KnockOverGlassController.Trigger();
 			}
 			break;
 		

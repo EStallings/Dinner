@@ -58,7 +58,7 @@ function Start () {
 	 // chuckCtrl.Trigger();
 	 // delilahCtrl.Trigger();
 	// colonelCtrlGetGun.Trigger();
-	colonelCtrlFireGun.Trigger();
+	// colonelCtrlFireGun.Trigger();
 	// DoTriggerAction("loadGun");
 	
 }
@@ -77,7 +77,7 @@ public function Unlock() {
 }
 
 function Update () {
-	
+
 	if (Random.value < 0.0005) {
 		lightningAudioSource.Play();
 		print("LIGHTNING!");
@@ -104,11 +104,8 @@ function DoTriggerAction (trigger) {
 			}
 			break;
 		case 'loosenChandelier':
-			flags['chandelierLoose'] = true;
-			// var charAnim : AnimController = chanObj.GetComponent("AnimController");
-			// charAnim.Trigger();
-			// var screwCtrl : MyCharacterController = screwObj.GetComponent("MyCharacterController");
-			// screwCtrl.Trigger();
+			var screwCtrl : MyCharacterController = screwObj.GetComponent("MyCharacterController");
+			screwCtrl.RealTrigger();
 			break;
 		case 'takeGun':
 			flags['gunTaken'] = true;
@@ -120,11 +117,16 @@ function DoTriggerAction (trigger) {
 			break;
 		case 'spillWine':
 			flags['wineSpilled'] = true;
-			hostCtrl.TriggerHighPriority();
+			hostCtrl.RealTrigger();
 			break;
 		case 'drinkBrandy':
 			flags['colonelDrunk'] = true;
 			colonelCtrlGetGun.Trigger();
+			break;
+		case 'loosenChandelier2':
+			flags['chandelierLoose'] = true;
+			var chanWag : PropWaggler = chanObj.GetComponent("PropWaggler");
+			chanWag.WaggleTrigger(true);
 			break;
 		case 'shootChandelier':
 			if (flags['gunLoaded']){
