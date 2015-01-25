@@ -53,10 +53,10 @@ function Start () {
 	lightningAudioSource = gameObject.AddComponent("AudioSource");
 	lightningAudioSource.clip = lightningAudioClip;
 
-	// adaCtrl.Trigger();
-	// billCtrl.Trigger();
-	// chuckCtrl.Trigger();
-	// delilahCtrl.Trigger();
+	 adaCtrl.Trigger();
+	 billCtrl.Trigger();
+	 chuckCtrl.Trigger();
+	 delilahCtrl.Trigger();
 	// colonelCtrlGetGun.Trigger();
 	// colonelCtrlFireGun.Trigger();
 	// DoTriggerAction("spillWine");
@@ -105,7 +105,7 @@ function DoTriggerAction (trigger) {
 			flags['chandelierLoose'] = true;
 			// var charAnim : AnimController = chanObj.GetComponent("AnimController");
 			// charAnim.Trigger();
-			var screwCtrl : MyCharacterController = screwObj.GetComponent("CharacterController");
+			var screwCtrl : MyCharacterController = screwObj.GetComponent("MyCharacterController");
 			screwCtrl.Trigger();
 			break;
 		case 'takeGun':
