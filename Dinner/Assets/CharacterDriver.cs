@@ -45,7 +45,6 @@ public class CharacterDriver : MonoBehaviour {
 			ResetState();
 			AnimationResetController.Trigger();
 			BendOverController.Trigger();
-			yield WaitForSeconds(0.5f);
 			ResetState();
 			GetBusyController.Trigger();
 
