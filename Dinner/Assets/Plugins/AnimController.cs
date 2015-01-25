@@ -9,17 +9,28 @@ public class AnimController : MonoBehaviour {
 	public bool active;
 	private int counter;
 
+	//Callback party has "AnimCallback()" called when we do first update after triggering
+	private CharacterAnimScheduler callbackParty = null;
+
 	// Use this for initialization
 	void Start () {
 
 	}
 
+	public void Trigger(CharacterAnimScheduler cbp){
+		callbackParty = cbp;
+		active = true;
+	}
+
 	public void Trigger(){
-		active = !active;
+		callbackParty = null;
+		active = true;
+
 	}
 
 	public void End(){
 		active = false;
+		callbackParty = null;
 		PropWaggler tempwaggle = null;
 		PropPointer temppointer = null;
 		PropRotateLock templock = null;
@@ -29,13 +40,13 @@ public class AnimController : MonoBehaviour {
 			templock = target.GetComponent<PropRotateLock>();
 
 			if (tempwaggle != null){
-				tempwaggle.activestate = false; 
+				tempwaggle.WaggleTrigger(false); 
 			}
 			if (temppointer != null){
 				temppointer.active = false; 
 			}
 			if (templock != null){
-				templock.active = false; 
+				templock.LockTrigger(false); 
 			}
 		}
 	}
@@ -52,6 +63,8 @@ public class AnimController : MonoBehaviour {
 				if(type[counter] == -1){
 					tempreset = target.GetComponent<LimbResetter>();
 					if (tempreset != null){
+						// print("Resetting " + (transform.parent.gameObject.transform.parent.gameObject.transform.parent.gameObject.name));
+						
 						tempreset.ResetTrigger();
 					}
 				}
@@ -60,7 +73,7 @@ public class AnimController : MonoBehaviour {
 					if (tempwaggle != null){
 						tempwaggle.offset = noffset[counter];
 						tempwaggle.speed = nspeed[counter];
-						tempwaggle.WaggleTrigger();
+						tempwaggle.WaggleTrigger(true);
 					}
 				}
 				if(type[counter] == 1){
@@ -77,11 +90,15 @@ public class AnimController : MonoBehaviour {
 						templock.offset = noffset[counter];
 						templock.speed = nspeed[counter];
 						templock.init();
-						templock.LockTrigger();
+						templock.LockTrigger(true);
 					}
 				}
 				counter++;
 			}
+		}
+		if(callbackParty != null){
+			callbackParty.AnimCallback();
+			callbackParty = null;
 		}
 	}
 }

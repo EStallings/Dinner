@@ -10,7 +10,7 @@ public class LimbResetter : MonoBehaviour {
 		animtarget = transform.localRotation;
 	}
 
-	public void ResetTrigger(){
+	public void ResetTrigger() {
 		transform.rotation = animtarget;
 	}
 	

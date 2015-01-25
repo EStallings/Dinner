@@ -5,7 +5,6 @@ public class PropWaggler : MonoBehaviour {
 	public Vector3 offset;
 	public float speed;
 	private Vector3 start;
-	private Vector3 end;
 	private Vector3 current;
 	private Quaternion currentquat;
 	public bool activestate;
@@ -15,11 +14,15 @@ public class PropWaggler : MonoBehaviour {
 	void Start () {
 		direction = false;
 		start = transform.localRotation.eulerAngles;
-		end = transform.localRotation.eulerAngles + offset;
 	}
 
-	public void WaggleTrigger(){
-		activestate = !activestate;
+	public void WaggleTrigger(bool status){
+		if (activestate == status){
+			return;
+		}
+		activestate = status;
+		direction = false;
+		start = transform.localRotation.eulerAngles;
 	}
 	
 	// Update is called once per frame

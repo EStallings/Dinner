@@ -54,9 +54,9 @@ function Start () {
 	lightningAudioSource.clip = lightningAudioClip;
 
 	 adaCtrl.Trigger();
-	 billCtrl.Trigger();
-	 chuckCtrl.Trigger();
-	 delilahCtrl.Trigger();
+	 // billCtrl.Trigger();
+	 // chuckCtrl.Trigger();
+	 // delilahCtrl.Trigger();
 	// colonelCtrlGetGun.Trigger();
 	// colonelCtrlFireGun.Trigger();
 	// DoTriggerAction("spillWine");
@@ -110,6 +110,10 @@ function DoTriggerAction (trigger) {
 			break;
 		case 'takeGun':
 			flags['gunTaken'] = true;
+			colonelCtrlFireGun.currentController = true;
+			colonelCtrlDrink.currentController = false;
+			colonelCtrlGetGun.currentController = false;
+			colonelCtrlFireGun.Trigger();
 			break;
 		case 'serveBrandy':
 			flags['brandyServed'] = true;
@@ -121,8 +125,10 @@ function DoTriggerAction (trigger) {
 			break;
 		case 'drinkBrandy':
 			flags['colonelDrunk'] = true;
+			colonelCtrlFireGun.currentController = false;
+			colonelCtrlDrink.currentController = false;
+			colonelCtrlGetGun.currentController = true;
 			colonelCtrlGetGun.Trigger();
-			colonelCtrlFireGun.Trigger();
 			break;
 		case 'shootChandelier':
 			if (flags['gunLoaded']){

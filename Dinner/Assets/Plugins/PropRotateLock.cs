@@ -3,9 +3,10 @@ using System.Collections;
 
 public class PropRotateLock : MonoBehaviour {
 	public bool active;
-	public bool isinit; 
 	public Vector3 offset;
 	public float speed;
+	public bool isinit; 
+
 	private Quaternion target;
 
 	// Use this for initialization
@@ -20,15 +21,15 @@ public class PropRotateLock : MonoBehaviour {
 		}
 	}
 
-	public void LockTrigger(){
-		active = !active;
+	public void LockTrigger(bool status) {
+		active = status;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(active){
 			transform.localRotation = Quaternion.Lerp(transform.localRotation, target, speed);
-			print("LocalRotation: " + target.eulerAngles);
+			// print("LocalRotation: " + target.eulerAngles);
 		}
 	}
 }

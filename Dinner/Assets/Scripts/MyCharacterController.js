@@ -2,26 +2,37 @@
 
 var controller : GameStatusController;
 
-var waypoints : Transform[];
-var times     : int[];
-var anims     : GameObject[]; //todo: make this some kind of asset type
-var animStop  : GameObject;
-var sounds    : AudioClip[];
-var triggers  : String[];
-var suppressInitialStuff : boolean;
-var synchWith : GameObject;
+var label : String;
+var activator : NodActivatee;
 
-var walkAnim  = null;
-var walkSound = null;
+var waypoints : Transform[];
+var lookpoints: Transform[];
+var times     : int[];
+var anims     : String[]; //todo: make this some kind of asset type
+var sounds    : AudioClip[];
+var soundsDontLoop: boolean[];
+var triggers  : String[];
+var synchWith : GameObject;
+var suppressInitialStuff : boolean;
+var animScheduler  : CharacterAnimScheduler;
+
+var randomTalkSound : boolean[];
+var randomTalkGenerator : RandomTalk;
+
+var walkAnim  = 'walk';
+var walkSound : AudioClip;
+
+var currentController = false;
 
 private var isCarryingObject : boolean        = false;
 private var silenced         : boolean        = false;
 private var isWalking        : boolean        = false;
 private var curTimer         : int            = -1;
-private var curWaypoint      : Transform      = null;
+ var curWaypoint      : Transform      = null;
+ var curLookPoint     : Transform      = null;
 private var lastWaypoint     : Transform      = null;
 private var curIndex         : int            = 0;
-private var curAnimation     : GameObject     = null;
+private var curAnimation     : String         = null;
 private var curSound         : AudioClip      = null;
 
 var speed = 0.1;
@@ -37,19 +48,23 @@ function Start () {
 	asource = gameObject.AddComponent("AudioSource");
 	asource.loop = true; //just, always loop everything
 	curWaypoint = waypoints[0];
+	curLookPoint = lookpoints[0];
 	curTimer = times[0];
 	// print(transform.position);
 	if(!suppressInitialStuff) {
 		StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
+		currentController = true;
 	}
 }
 
 public function Trigger() {
+	if (activator)
+		activator.disabled = true;
 	controller.RequestLock(this, false);
 }
 
 public function RealTrigger(){
-	print("Triggered!");
+	//print("Triggered!");
 	curTimer = 0;
 	silenced = false;
 	if(synchWith != null) {
@@ -63,7 +78,7 @@ public function TriggerHighPriority(){
 }
 
 public function SilentTrigger(){
-	print("Triggered!");
+	//print("Triggered!");
 	curTimer = 0;
 	silenced = true;
 }
@@ -71,48 +86,57 @@ public function SilentTrigger(){
 function StartAnimAndSoundLoops(anim, sound) {
 	// print("Starting anim and sound on loop!");
 	//End current animations and sounds
-	if(curAnimation != null){
-		//End animation
-		var canim1 : AnimController = animStop.GetComponent("AnimController");
-		canim1.Trigger();
 
-	}
 	if(curSound != null){
 		//End sound
 		asource.Stop();
-		print("Stopping : " + curSound);
+		//print("Stopping : " + curSound);
 	}
+	var lastSound = curSound;
+	var lastAnimation= curAnimation;
 	curAnimation = anim;
 	curSound = sound;
 	//Start current animations and sounds
-	if(curAnimation != null){
+	if(curAnimation != '' && curAnimation != lastAnimation){
 		//Start animation
-		var canim2 : AnimController = curAnimation.GetComponent("AnimController");
-		canim2.Trigger();
+		if(animScheduler){
+			print("Starting animation " + curAnimation + " from " + label);
+			animScheduler.SetAnimation(curAnimation);
+		}
 	}
-	if(curSound != null){
+	if(curSound != null && curSound != lastSound){
 		//Start sound
+		print("Starting soundeffect " + curSound + " from " + label);
 		asource.clip = curSound;
+		asource.loop = soundsDontLoop[curIndex];
 		asource.Play();
-		print("Playing : " + curSound);
+		//print("Playing : " + curSound);
 	}
 }
 
 function Update () {
+	if (curLookPoint != null && currentController) {
+		var damping : int = 2;
+		var lookPos = curLookPoint.position - transform.position;
+		lookPos.y = 0;
+		var rotation = Quaternion.LookRotation(lookPos);
+		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
+	}
 	if (isWalking){
 		MoveTowardsWaypoint(curWaypoint);
 	}
 	else {
-
-		if(curTimer > 0) curTimer --;
+		if(curTimer > 0) {
+			curTimer --;
+		}
 		if(curTimer == 0) {
-			print("Progressing : " + (curIndex + 1));
 			if(triggers[curIndex] != 0){
 				controller.DoTriggerAction(triggers[curIndex]);
 			}
 			curIndex ++;
 			lastWaypoint = curWaypoint;
 			curWaypoint = waypoints[curIndex];
+			curLookPoint = lookpoints[curIndex];
 
 			if(!IsCloseToDestination()){
 				isWalking = true;
@@ -127,7 +151,6 @@ function Update () {
 					if(!silenced) {
 						controller.Unlock();
 					}
-					print("Finishing!");
 				}
 			}
 		}
@@ -136,7 +159,7 @@ function Update () {
 
 function IsCloseToDestination() {
 	var distance = Vector3.Distance(lastWaypoint.position, curWaypoint.position);
-	print("Distance = " + distance);
+	//print("Distance = " + distance);
 	if(distance > 0.5) return false;
 	return true;
 }
@@ -145,17 +168,17 @@ function MoveTowardsWaypoint(waypoint) {
 	var distCovered = (Time.time - startTime) * speed;
 	var fracJourney = distCovered / journeyLength;
 	// print("FracJourney " + fracJourney);
-  transform.position = Vector3.Lerp(lastWaypoint.position, curWaypoint.position, fracJourney);
-  if (fracJourney >= 1){
-  	isWalking = false;
-  	curTimer = times[curIndex];
+	transform.position = Vector3.Lerp(lastWaypoint.position, curWaypoint.position, fracJourney);
+	if (fracJourney >= 1){
+		isWalking = false;
+		curTimer = times[curIndex];
 		StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 		if(curTimer < 0){
 			if(!silenced) {
 				controller.Unlock();
 			}
-			print("Finishing!");
+			//print("Finishing!");
 		}
-  	//print("Stopping");
-  }
+		//print("Stopping");
+	}
 }
