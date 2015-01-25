@@ -18,6 +18,28 @@ public class AnimController : MonoBehaviour {
 		active = !active;
 	}
 
+	public void End(){
+		active = false;
+		PropWaggler tempwaggle = null;
+		PropPointer temppointer = null;
+		PropRotateLock templock = null;
+		foreach (GameObject target in targets){
+			tempwaggle = target.GetComponent<PropWaggler>();
+			temppointer = target.GetComponent<PropPointer>();
+			templock = target.GetComponent<PropRotateLock>();
+
+			if (tempwaggle != null){
+				tempwaggle.activestate = false; 
+			}
+			if (temppointer != null){
+				temppointer.active = false; 
+			}
+			if (templock != null){
+				templock.active = false; 
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 		PropWaggler tempwaggle = null;
@@ -54,6 +76,7 @@ public class AnimController : MonoBehaviour {
 					if (templock != null){
 						templock.offset = noffset[counter];
 						templock.speed = nspeed[counter];
+						templock.init();
 						templock.LockTrigger();
 					}
 				}

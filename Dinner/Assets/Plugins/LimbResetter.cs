@@ -11,13 +11,11 @@ public class LimbResetter : MonoBehaviour {
 	}
 
 	public void ResetTrigger(){
-		active = !active;
+		transform.rotation = animtarget;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(active){
-			transform.localRotation = Quaternion.Lerp(transform.localRotation, animtarget, 15);
-		}
+
 	}
 }
