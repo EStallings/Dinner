@@ -11,7 +11,7 @@ public class LimbResetter : MonoBehaviour {
 	}
 
 	public void ResetTrigger() {
-		transform.rotation = animtarget;
+		transform.localRotation = animtarget;
 	}
 	
 	// Update is called once per frame

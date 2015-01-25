@@ -16,7 +16,7 @@ Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Manag
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
 Loading C:\Users\Ethan\Desktop\Dinner\Dinner\InterfaceTest_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-- Completed reload, in  0.073 seconds
+- Completed reload, in  0.072 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0

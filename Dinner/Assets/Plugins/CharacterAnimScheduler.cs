@@ -25,7 +25,7 @@ public class CharacterAnimScheduler : MonoBehaviour {
 
 	public void SetAnimation(string anim) {
 		animType = anim;
-		print("Starting new animation with " + time + " on previous clock");
+		// print("Starting new animation with " + time + " on previous clock");
 		time = 0.0f;
 		phase = 0;
 		resetLock = true;
@@ -79,7 +79,7 @@ public class CharacterAnimScheduler : MonoBehaviour {
 			if (time == 0.0) {
 				GetBusyController.Trigger();
 			}
-			if (time > 2 && phase == 0) {
+			if (time > 3 && phase == 0) {
 				phase = 1;
 				GetBusyController.End();
 				ShootCeilingController.Trigger();
@@ -93,7 +93,7 @@ public class CharacterAnimScheduler : MonoBehaviour {
 			break;
 		case "freakOut":
 			if (time == 0.0) {
-				WalkController.Trigger();
+				TorsoWalkController.Trigger();
 				FreakOutController.Trigger();
 			}
 			break;

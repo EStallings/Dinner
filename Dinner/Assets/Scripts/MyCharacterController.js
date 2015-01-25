@@ -3,8 +3,9 @@
 var controller : GameStatusController;
 
 var label : String;
-var activator : NodActivatee;
+var activator : NodActivatee = null;
 
+var becomeInactiveWhenFinished : boolean = false;
 var waypoints : Transform[];
 var lookpoints: Transform[];
 var times     : int[];
@@ -50,6 +51,7 @@ function Start () {
 	curWaypoint = waypoints[0];
 	curLookPoint = lookpoints[0];
 	curTimer = times[0];
+
 	// print(transform.position);
 	if(!suppressInitialStuff) {
 		StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
@@ -58,15 +60,19 @@ function Start () {
 }
 
 public function Trigger() {
-	if (activator)
+	if (activator != null)
 		activator.disabled = true;
 	controller.RequestLock(this, false);
 }
 
 public function RealTrigger(){
-	//print("Triggered!");
+	// print(label + "Triggered!");
 	curTimer = 0;
 	silenced = false;
+	if(!currentController) {
+		StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
+		currentController = true;
+	}
 	if(synchWith != null) {
 		var pair : MyCharacterController = synchWith.GetComponent("MyCharacterController");
 		pair.SilentTrigger();
@@ -92,6 +98,7 @@ function StartAnimAndSoundLoops(anim, sound) {
 		asource.Stop();
 		//print("Stopping : " + curSound);
 	}
+	print("curAnimation: " + curAnimation + " next: " + anim);
 	var lastSound = curSound;
 	var lastAnimation= curAnimation;
 	curAnimation = anim;
@@ -115,7 +122,14 @@ function StartAnimAndSoundLoops(anim, sound) {
 }
 
 function Update () {
-	if (curLookPoint != null && currentController) {
+	if(!currentController){
+		print(label + " is not current controller; exiting");
+		if(asource.isPlaying){
+			asource.Stop();
+		}
+		return;
+	}
+	if (curLookPoint != null) {
 		var damping : int = 2;
 		var lookPos = curLookPoint.position - transform.position;
 		lookPos.y = 0;
@@ -134,8 +148,9 @@ function Update () {
 				controller.DoTriggerAction(triggers[curIndex]);
 			}
 			curIndex ++;
+			print("from: " + label + " index = " + curIndex + " with anim " + anims[curIndex] + " and time " + times[curIndex]);
 			lastWaypoint = curWaypoint;
-			curWaypoint = waypoints[curIndex];
+			curWaypoint  = waypoints[curIndex];
 			curLookPoint = lookpoints[curIndex];
 
 			if(!IsCloseToDestination()){
@@ -149,6 +164,9 @@ function Update () {
 				StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
 				if(curTimer < 0){
 					if(!silenced) {
+						if(becomeInactiveWhenFinished){
+							this.currentController = false;
+						}
 						controller.Unlock();
 					}
 				}
@@ -159,7 +177,7 @@ function Update () {
 
 function IsCloseToDestination() {
 	var distance = Vector3.Distance(lastWaypoint.position, curWaypoint.position);
-	//print("Distance = " + distance);
+	print("Distance = " + distance);
 	if(distance > 0.5) return false;
 	return true;
 }
@@ -172,11 +190,16 @@ function MoveTowardsWaypoint(waypoint) {
 	if (fracJourney >= 1){
 		isWalking = false;
 		curTimer = times[curIndex];
+		print("What?");
 		StartAnimAndSoundLoops(anims[curIndex], sounds[curIndex]);
-		if(curTimer < 0){
-			if(!silenced) {
-				controller.Unlock();
-			}
+			if(curTimer < 0){
+				if(!silenced) {
+					if(becomeInactiveWhenFinished){
+						this.currentController = false;
+					}
+					controller.Unlock();
+				}
+			
 			//print("Finishing!");
 		}
 		//print("Stopping");

@@ -1,9 +1,9 @@
 ﻿#pragma strict
 
 var flags = {
-	'gunLoaded':false,
-	'chandelierLoose':false,
-	'wineSpilled':false,
+	'gunLoaded':true,
+	'chandelierLoose':true,
+	'wineSpilled':true,
 	'colonelDrunk':false,
 	'brandyServed':false,
 	'gunTaken':false
@@ -53,13 +53,14 @@ function Start () {
 	lightningAudioSource = gameObject.AddComponent("AudioSource");
 	lightningAudioSource.clip = lightningAudioClip;
 
-	 adaCtrl.Trigger();
+	 // adaCtrl.Trigger();
 	 // billCtrl.Trigger();
 	 // chuckCtrl.Trigger();
 	 // delilahCtrl.Trigger();
 	// colonelCtrlGetGun.Trigger();
-	// colonelCtrlFireGun.Trigger();
-	// DoTriggerAction("spillWine");
+	colonelCtrlFireGun.Trigger();
+	// DoTriggerAction("loadGun");
+	
 }
 
 public function RequestLock(ctrl : MyCharacterController, hp : boolean) {
@@ -76,6 +77,7 @@ public function Unlock() {
 }
 
 function Update () {
+	
 	if (Random.value < 0.0005) {
 		lightningAudioSource.Play();
 		print("LIGHTNING!");
@@ -105,14 +107,11 @@ function DoTriggerAction (trigger) {
 			flags['chandelierLoose'] = true;
 			// var charAnim : AnimController = chanObj.GetComponent("AnimController");
 			// charAnim.Trigger();
-			var screwCtrl : MyCharacterController = screwObj.GetComponent("MyCharacterController");
-			screwCtrl.Trigger();
+			// var screwCtrl : MyCharacterController = screwObj.GetComponent("MyCharacterController");
+			// screwCtrl.Trigger();
 			break;
 		case 'takeGun':
 			flags['gunTaken'] = true;
-			colonelCtrlFireGun.currentController = true;
-			colonelCtrlDrink.currentController = false;
-			colonelCtrlGetGun.currentController = false;
 			colonelCtrlFireGun.Trigger();
 			break;
 		case 'serveBrandy':
@@ -125,15 +124,13 @@ function DoTriggerAction (trigger) {
 			break;
 		case 'drinkBrandy':
 			flags['colonelDrunk'] = true;
-			colonelCtrlFireGun.currentController = false;
-			colonelCtrlDrink.currentController = false;
-			colonelCtrlGetGun.currentController = true;
 			colonelCtrlGetGun.Trigger();
 			break;
 		case 'shootChandelier':
 			if (flags['gunLoaded']){
 				//Gun is loaded - play gunshot
 				var caudiosource : AudioSource = colonelObj.GetComponent(AudioSource);
+				print(caudiosource.clip);
 				caudiosource.Play();
 				if (flags['chandelierLoose']){
 					//Chandelier falls and kills whoever is sitting in the host's wife's seat
